@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreyAtom Logistics | Delivery Exception Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo-area">
+            <div class="logo">GL</div>
+
+            <div>
+                <h1>GreyAtom Logistics</h1>
+                <p>Delivery Exception Management Dashboard</p>
+            </div>
+        </div>
+
+        <div class="header-right">
+
+            <div class="manager">
+                👤 Operations Manager
+            </div>
+
+            <div id="currentDate" class="date"></div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container">
+
+
+
+
+        <!-- ================= DASHBOARD CARDS ================= -->
+
+        <section class="stats">
+
+            <div class="card total">
+                <h3>Total Exceptions</h3>
+                <h1 id="totalCount">0</h1>
+            </div>
+
+            <div class="card open">
+                <h3>Open Issues</h3>
+                <h1 id="openCount">0</h1>
+            </div>
+
+            <div class="card resolved">
+                <h3>Resolved</h3>
+                <h1 id="resolvedCount">0</h1>
+            </div>
+
+            <div class="card high">
+                <h3>High Priority</h3>
+                <h1 id="highCount">0</h1>
+            </div>
+
+        </section>
+
+
+
+
+
+
+        <!-- ================= FORM ================= -->
+
+        <section class="form-container">
+
+            <h2>Report Delivery Exception</h2>
+
+            <form id="exceptionForm">
+
+                <div class="grid">
+
+                    <div class="form-group">
+                        <label>Delivery ID *</label>
+
+                        <input type="text" id="deliveryId" placeholder="EX : DLV10231" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Customer Name *</label>
+
+                        <input type="text" id="customerName" placeholder="Enter Customer Name" required>
+                    </div>
+
+                </div>
+
+
+
+                <div class="grid">
+
+                    <div class="form-group">
+
+                        <label>Issue Type *</label>
+
+                        <select id="issueType" required>
+
+                            <option value="">
+                                Select Issue
+                            </option>
+
+                            <option>
+                                Address Not Found
+                            </option>
+
+                            <option>
+                                Customer Not Available
+                            </option>
+
+                            <option>
+                                Payment Issue
+                            </option>
+
+                            <option>
+                                Package Damaged
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label>Priority *</label>
+
+                        <div class="priority">
+
+                            <label>
+
+                                <input type="radio" name="priority" value="Low" required>
+
+                                Low
+
+                            </label>
+
+
+                            <label>
+
+                                <input type="radio" name="priority" value="Medium">
+
+                                Medium
+
+                            </label>
+
+
+                            <label>
+
+                                <input type="radio" name="priority" value="High">
+
+                                High
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+                <div class="form-group">
+
+                    <label>Notes</label>
+
+                    <textarea id="notes" rows="4" placeholder="Additional details (Optional)"></textarea>
+
+                </div>
+
+
+
+                <button class="submit-btn">
+
+                    Report Issue
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+
+
+
+
+
+        <!-- ================= FILTERS ================= -->
+
+        <section class="filter-section">
+
+            <div class="search">
+
+                <input type="text" id="searchInput" placeholder="Search by Delivery ID or Customer Name...">
+
+            </div>
+
+
+            <div class="filters">
+
+                <select id="filterIssue">
+
+                    <option value="All">
+                        All Issues
+                    </option>
+
+                    <option value="Address Not Found">
+                        Address Not Found
+                    </option>
+
+                    <option value="Customer Not Available">
+                        Customer Not Available
+                    </option>
+
+                    <option value="Payment Issue">
+                        Payment Issue
+                    </option>
+
+                    <option value="Package Damaged">
+                        Package Damaged
+                    </option>
+
+                </select>
+
+
+                <select id="filterStatus">
+
+                    <option value="All">
+                        All Status
+                    </option>
+
+                    <option value="Open">
+                        Open
+                    </option>
+
+                    <option value="Resolved">
+                        Resolved
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+
+
+
+
+
+
+        <!-- ================= TABLE ================= -->
+
+        <section class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Delivery ID</th>
+
+                        <th>Customer</th>
+
+                        <th>Issue Type</th>
+
+                        <th>Priority</th>
+
+                        <th>Status</th>
+
+                        <th>Reported On</th>
+
+                        <th>Notes</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody id="tableBody">
+
+
+
+
+                    <!-- Empty State -->
+
+                    <tr id="emptyRow">
+
+                        <td colspan="8" class="empty">
+
+                            📦
+
+                            <h3>No Delivery Exceptions Found</h3>
+
+                            <p>
+
+                                New delivery issues will appear here.
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        GreyAtom Logistics Pvt. Ltd. © 2026
+
+    </footer>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
